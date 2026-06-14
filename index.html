@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bij Bosshardt Ede — Leger des Heils</title>
+  <style>
+    :root {
+      --rood: #e2231a;
+      --rood-donker: #b71c14;
+      --geel: #ffd200;
+      --grijs: #f4f4f4;
+      --lijn: #e3e3e3;
+      --tekst: #222;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: var(--tekst);
+      line-height: 1.6;
+      background: #fff;
+    }
+    a { color: var(--rood); }
+
+    /* ===== Header / hoofdnavigatie ===== */
+    header {
+      border-bottom: 1px solid var(--lijn);
+      position: sticky; top: 0; background: #fff; z-index: 20;
+    }
+    .header-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0.85rem 1.5rem;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--rood); }
+    .logo .mark {
+      width: 42px; height: 42px; background: var(--rood); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.3rem; flex-shrink: 0;
+    }
+    .logo .name { font-size: 1.15rem; font-weight: 700; color: #222; line-height: 1.15; }
+    .logo .name small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--rood); }
+
+    .mainnav { display: flex; gap: 1.5rem; margin-left: auto; align-items: center; }
+    .mainnav a { text-decoration: none; color: #222; font-weight: 600; font-size: 0.95rem; }
+    .mainnav a:hover, .mainnav a.active { color: var(--rood); }
+    .mainnav .doneer {
+      background: var(--rood); color: #fff; padding: 0.5rem 1.2rem; border-radius: 999px;
+    }
+    .icons { display: flex; gap: 1rem; align-items: center; }
+    .icons button {
+      background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #222; line-height: 1;
+    }
+    .hamburger { display: none; }
+
+    @media (max-width: 900px) {
+      .mainnav { display: none; }
+      .hamburger { display: inline-block; }
+    }
+
+    /* ===== Content (single column) ===== */
+    .container { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 1.5rem; }
+    .breadcrumb a { text-decoration: none; }
+
+    h1 { font-size: 2.4rem; color: #222; margin-bottom: 1.25rem; }
+
+    /* Contactregels met iconen */
+    .contact-list { list-style: none; margin-bottom: 2rem; }
+    .contact-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.35rem 0; font-size: 1rem;
+    }
+    .contact-list .ico {
+      width: 1.5rem; text-align: center; color: var(--rood); flex-shrink: 0; font-size: 1.1rem;
+    }
+    .contact-list a { text-decoration: none; }
+
+    /* Inklapbare openingstijden */
+    .hours { border: 1px solid var(--lijn); border-radius: 8px; margin-bottom: 2.5rem; overflow: hidden; }
+    .hours summary {
+      list-style: none; cursor: pointer; padding: 1rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+      font-weight: 600;
+    }
+    .hours summary::-webkit-details-marker { display: none; }
+    .hours summary .status { color: #1a7f37; font-weight: 600; font-size: 0.9rem; }
+    .hours summary .chev { transition: transform .2s; color: #888; }
+    .hours[open] summary .chev { transform: rotate(180deg); }
+    .hours table { width: 100%; border-collapse: collapse; }
+    .hours td { padding: 0.55rem 1.25rem; border-top: 1px solid var(--lijn); font-size: 0.95rem; }
+    .hours td:last-child { text-align: right; }
+    .hours .vandaag { font-weight: 700; }
+    .hours .closed { color: #999; }
+
+    .content-block { margin-bottom: 2.5rem; }
+    .content-block h2 { font-size: 1.5rem; color: #222; margin-bottom: 0.75rem; }
+    .content-block p { margin-bottom: 1rem; }
+
+    /* Weekprogramma */
+    .program { list-style: none; }
+    .program > li { padding: 0.9rem 0; border-bottom: 1px solid var(--lijn); }
+    .program .dag { font-weight: 700; color: var(--rood); margin-bottom: 0.25rem; }
+    .program .item { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.95rem; color: #444; }
+
+    /* Volg ons */
+    .follow { border-top: 1px solid var(--lijn); padding-top: 1.5rem; }
+    .follow h2 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+    .follow a {
+      display: inline-flex; width: 40px; height: 40px; border-radius: 50%;
+      background: var(--rood); color: #fff; text-decoration: none;
+      align-items: center; justify-content: center; margin-right: 0.6rem; font-weight: 700;
+    }
+
+    /* ===== Footer ===== */
+    footer { background: #1f1f1f; color: #ddd; margin-top: 2rem; }
+    .footer-inner {
+      max-width: 1180px; margin: 0 auto; padding: 3rem 1.5rem 2rem;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    }
+    @media (max-width: 760px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+    .footer-inner h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.9rem; }
+    .footer-inner ul { list-style: none; }
+    .footer-inner li { margin-bottom: 0.5rem; }
+    .footer-inner a { color: #bbb; text-decoration: none; font-size: 0.9rem; }
+    .footer-inner a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid #3a3a3a; text-align: center; padding: 1rem;
+      font-size: 0.8rem; color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <span class="mark">L</span>
+        <span class="name">Leger des Heils<small>Geloof in actie</small></span>
+      </a>
+      <nav class="mainnav">
+        <a href="#">Ik zoek hulp</a>
+        <a href="#">Ik wil helpen</a>
+        <a href="#">Wat we doen</a>
+        <a href="#" class="active">Locaties</a>
+        <a href="#">Vacatures</a>
+        <a href="#" class="doneer">Doneer</a>
+      </nav>
+      <div class="icons">
+        <button aria-label="Zoeken">&#128269;</button>
+        <button class="hamburger" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Content (single column) ===== -->
+  <div class="container">
+
+    <div class="breadcrumb">
+      <a href="#">Home</a> &rsaquo; <a href="#">Locaties</a> &rsaquo; Bij Bosshardt Ede
+    </div>
+
+    <h1>Bij Bosshardt Ede</h1>
+
+    <!-- Contactgegevens met iconen -->
+    <ul class="contact-list">
+      <li><span class="ico">&#128205;</span> Reehorsterweg 88, 6717 LG Ede</li>
+      <li><span class="ico">&#128222;</span> <a href="tel:0318610345">0318 - 610 345</a></li>
+      <li><span class="ico">&#9993;</span> <a href="mailto:korps.valleistreek@legerdesheils.nl">korps.valleistreek@legerdesheils.nl</a></li>
+    </ul>
+
+    <!-- Inklapbare openingstijden -->
+    <details class="hours" open>
+      <summary>
+        <span>Openingstijden</span>
+        <span><span class="status">Nu geopend</span> &nbsp; <span class="chev">&#9662;</span></span>
+      </summary>
+      <table>
+        <tr class="vandaag"><td>Maandag</td><td>13:00 – 14:00</td></tr>
+        <tr><td>Dinsdag</td><td>09:30 – 13:30</td></tr>
+        <tr><td>Woensdag</td><td class="closed">Gesloten</td></tr>
+        <tr><td>Donderdag</td><td>09:30 – 13:30</td></tr>
+        <tr><td>Vrijdag</td><td>09:30 – 12:00</td></tr>
+        <tr><td>Zaterdag</td><td class="closed">Gesloten</td></tr>
+        <tr><td>Zondag</td><td class="closed">Gesloten</td></tr>
+      </table>
+    </details>
+
+    <!-- Beschrijvend tekstblok -->
+    <div class="content-block">
+      <h2>Over deze pagina</h2>
+      <p>Deze pagina is stap voor stap opgebouwd in een gesprek met Claude Code. Hieronder een samenvatting van wat er in die conversatie is gebeurd.</p>
+
+      <h2>Wat we hebben gemaakt</h2>
+      <ol>
+        <li><strong>Eerste opzet:</strong> een enkel HTML-bestand als boilerplate dat lijkt op de website van het Leger des Heils — met rode huisstijl, een header met logo, een korte navigatie, een hero-blok en een footer, zodat er nog tekst op de hoofdpagina toegevoegd kon worden.</li>
+        <li><strong>Op basis van een echte locatie:</strong> de pagina is opnieuw gemaakt aan de hand van de locatiepagina <em>Bij Bosshardt Ede</em>, met de juiste menu-items, het adres (Reehorsterweg 88, 6717 LG Ede), de contactgegevens, de openingstijden en het weekprogramma.</li>
+        <li><strong>Exacte layout overgenomen:</strong> de opzet is aangepast naar de echte structuur van de site — een sticky header met zoek- en menu-icoon, geen hero-afbeelding, een single-column body met titel, contactregels met iconen, inklapbare openingstijden, een tekstblok, het weekprogramma per dag, een "Volg ons"-blok en een donkere meerkoloms footer.</li>
+        <li><strong>Inhoud van het gesprek:</strong> tot slot is deze samenvatting van de conversatie als tekst op de pagina geplaatst.</li>
+      </ol>
+
+      <h2>Over deze buurthuiskamer</h2>
+      <p>Ontmoeting, omzien naar elkaar, goede gesprekken en samen optrekken. Je hoort erbij. Je wordt gezien. Voel je thuis.</p>
+    </div>
+
+    <!-- Weekprogramma -->
+    <div class="content-block">
+      <h2>Activiteiten in de week</h2>
+      <ul class="program">
+        <li>
+          <div class="dag">Maandag</div>
+          <div class="item"><span>Taalcafé</span><span></span></div>
+          <div class="item"><span>Bewegingsactiviteit</span><span></span></div>
+        </li>
+        <li>
+          <div class="dag">Dinsdag</div>
+          <div class="item"><span>Inloop</span><span></span></div>
+          <div class="item"><span>Nederlandse les</span><span></span></div>
+          <div class="item"><span>Naaicafé &amp; verkoop kaarten</span><span></span></div>
+          <div class="item"><span>Lunch en warme maaltijd</span><span></span></div>
+        </li>
+        <li>
+          <div class="dag">Woensdag</div>
+          <div class="item"><span>Avonturenclub</span><span></span></div>
+        </li>
+        <li>
+          <div class="dag">Donderdag</div>
+          <div class="item"><span>Inloop</span><span></span></div>
+          <div class="item"><span>Nederlandse les</span><span></span></div>
+          <div class="item"><span>Lunch</span><span></span></div>
+        </li>
+        <li>
+          <div class="dag">Vrijdag</div>
+          <div class="item"><span>Inloop</span><span></span></div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Volg ons -->
+    <div class="follow">
+      <h2>Volg ons</h2>
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="Instagram">&#9673;</a>
+    </div>
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h4>Direct naar</h4>
+        <ul>
+          <li><a href="#">Ik zoek hulp</a></li>
+          <li><a href="#">Locaties</a></li>
+          <li><a href="#">Vacatures</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Service &amp; contact</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Veelgestelde vragen</a></li>
+          <li><a href="#">Klacht of compliment</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Steun ons</h4>
+        <ul>
+          <li><a href="#">Doneer</a></li>
+          <li><a href="#">Word vrijwilliger</a></li>
+          <li><a href="#">Nalaten</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Volg ons</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Leger des Heils — Boilerplate
+    </div>
+  </footer>
+
+</body>
+</html>
