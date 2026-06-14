@@ -102,8 +102,8 @@
     p { margin-bottom: 1rem; }
 
     /* Over ons: twee kaarten */
-    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    @media (max-width: 720px) { .duo { grid-template-columns: 1fr; } }
+    .duo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    @media (max-width: 860px) { .duo { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
     .panel {
       background: #fff; border: 1px solid var(--lijn); border-radius: 12px;
       padding: 1.75rem; border-top: 4px solid var(--rood);
@@ -256,6 +256,16 @@
           <h3>Ontmoet Rosie</h3>
           <p><strong>Onvoorwaardelijke connectie.</strong></p>
           <p>Rosie is een anderhalfjarige, enthousiaste labradoodle. Ze weet heel goed wat ze wil en maakt ontzettend graag contact met mensen. Rosie oordeelt niet, ziet geen beperkingen of achtergrond, maar ziet puur de mens die voor haar staat.</p>
+        </div>
+        <div class="panel">
+          <div class="foto-frame" style="aspect-ratio: 4/3; margin-bottom: 1.25rem;">
+            <span class="tip">Foto laadt…</span>
+            <img src="images/handler-web.jpg" alt="Anne-Frouk en Rosie samen" onerror="this.remove()" />
+          </div>
+          <p class="foto-credit">Photography by Kim Hildering</p>
+          <h3>Ontmoet ons team</h3>
+          <p><strong>Samen sterker.</strong></p>
+          <p>Als ingespeeld DAI-team vullen wij elkaar aan: Anne-Frouk leest de mens en de situatie, Rosie leest de sfeer en het gevoel. Samen brengen wij rust, vertrouwen en verbinding op plekken waar dat het hardst nodig is.</p>
         </div>
       </div>
 
