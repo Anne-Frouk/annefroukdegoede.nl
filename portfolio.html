@@ -27,6 +27,19 @@
 
     /* Long-scroll: voorkom dat de sticky header de sectietitel afdekt bij het springen */
     section, footer { scroll-margin-top: 76px; }
+
+    /* Fotokaders: tonen een placeholder met bestandsnaam tot de foto er staat */
+    .foto-frame {
+      position: relative; overflow: hidden; border-radius: 12px;
+      background: var(--grijs); border: 1px solid var(--lijn);
+    }
+    .foto-frame .tip {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      color: #888; font-size: 0.85rem; text-align: center; padding: 1rem;
+    }
+    .foto-frame img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+    }
     a { color: var(--rood); }
     h1, h2, h3 { line-height: 1.2; }
 
@@ -156,6 +169,10 @@
         <a href="#over-ons" class="btn btn-rood">Leer ons kennen</a>
         <a href="#contact" class="btn btn-wit">Direct inzetten</a>
       </div>
+      <div class="foto-frame" style="aspect-ratio: 16/9; max-width: 680px; margin: 2.5rem auto 0;">
+        <span class="tip">Foto laadt…</span>
+        <img src="images/hero-web.jpg" alt="Rosie de labradoodle" onerror="this.remove()" />
+      </div>
     </div>
   </section>
 
@@ -167,11 +184,19 @@
 
       <div class="duo">
         <div class="panel">
+          <div class="foto-frame" style="aspect-ratio: 4/3; margin-bottom: 1.25rem;">
+            <span class="tip">Foto laadt…</span>
+            <img src="images/handler-web.jpg" alt="Anne-Frouk de Goede met Rosie" onerror="this.remove()" />
+          </div>
           <h3>Ontmoet de handler</h3>
           <p><strong>Professionaliteit in zorg &amp; welzijn.</strong></p>
           <p>Mijn naam is <strong>Anne-Frouk de Goede</strong>. Met diploma's als doktersassistente en maatschappelijk werker combineer ik het beste uit de medische wereld en de welzijnswereld. Hierdoor sluit ik moeiteloos aan bij de belevingswereld van allerhande mensen die wij tijdens ons werk ontmoeten.</p>
         </div>
         <div class="panel">
+          <div class="foto-frame" style="aspect-ratio: 4/3; margin-bottom: 1.25rem;">
+            <span class="tip">Foto laadt…</span>
+            <img src="images/rosie-web.jpg" alt="Rosie de labradoodle" onerror="this.remove()" />
+          </div>
           <h3>Ontmoet Rosie</h3>
           <p><strong>Onvoorwaardelijke connectie.</strong></p>
           <p>Rosie is een anderhalfjarige, enthousiaste labradoodle. Ze weet heel goed wat ze wil en maakt ontzettend graag contact met mensen. Rosie oordeelt niet, ziet geen beperkingen of achtergrond, maar ziet puur de mens die voor haar staat.</p>
