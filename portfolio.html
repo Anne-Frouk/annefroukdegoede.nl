@@ -137,6 +137,21 @@
     }
     .kwal .check + div strong { color: var(--donker); }
 
+    /* ===== Galerij ===== */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+    }
+    @media (max-width: 720px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+    .gallery-grid figure {
+      position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 10px; margin: 0;
+      background: var(--grijs);
+    }
+    .gallery-grid img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.3s ease;
+    }
+    .gallery-grid figure:hover img { transform: scale(1.05); }
+
     /* ===== Footer / contact ===== */
     footer { background: var(--donker); color: #fff; text-align: center; padding: 4rem 1.5rem; }
     footer .footer-logo { height: 64px; width: auto; margin: 0 auto 1.5rem; display: block; }
@@ -161,6 +176,7 @@
         <a href="#over-ons">Over Ons</a>
         <a href="#inzetbaarheid">Onze Inzetbaarheid</a>
         <a href="#kwaliteit">Kwaliteit &amp; Welzijn</a>
+        <a href="#galerij">Galerij</a>
         <a href="#contact">Contact</a>
       </nav>
       <img src="images/team-thumb-web.jpg" alt="Anne-Frouk en Rosie" class="brand-photo" />
@@ -261,6 +277,26 @@
           <div><strong>Hygiëne &amp; veiligheid.</strong> Dankzij mijn medische achtergrond hanteer ik een strikt hygiëneprotocol dat perfect past binnen zorginstellingen en huishoudens.</div>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ===== Galerij ===== -->
+  <section class="alt" id="galerij">
+    <div class="wrap">
+      <h2>Galerij</h2>
+      <p class="intro">Rosie van pup tot DAI-hond in opleiding — onderweg, thuis en op de proeffoto's.</p>
+      <div class="gallery-grid">
+        <figure><img src="images/hero-web.jpg" alt="Rosie op een boomstronk" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/rosie-web.jpg" alt="Rosie zittend in het gras" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/gal-grass2-web.jpg" alt="Rosie staand in het gras" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/gal-blossom1-web.jpg" alt="Rosie onder de bloesem" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/gal-blossom2-web.jpg" alt="Rosie onder de bloesem" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/gal-meadow-web.jpg" alt="Rosie in de uiterwaarden" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/gal-greenhouse-web.jpg" alt="Rosie op de schouder in de kas" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/gal-couch-web.jpg" alt="Rosie slaapt op de bank" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+        <figure><img src="images/gal-face-web.jpg" alt="Close-up van Rosie" loading="lazy" onerror="this.closest('figure').remove()" /></figure>
+      </div>
+      <p class="foto-credit">Studiofoto's: Photography by Kim Hildering</p>
     </div>
   </section>
 
