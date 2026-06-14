@@ -16,12 +16,17 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: "Helvetica Neue", Arial, sans-serif;
       color: var(--tekst);
       line-height: 1.65;
       background: #fff;
     }
+
+    /* Long-scroll: voorkom dat de sticky header de sectietitel afdekt bij het springen */
+    section, footer { scroll-margin-top: 76px; }
     a { color: var(--rood); }
     h1, h2, h3 { line-height: 1.2; }
 
@@ -37,11 +42,7 @@
       padding: 0.85rem 1.5rem; max-width: 1080px; margin: 0 auto;
     }
     .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-    .brand .mark {
-      width: 42px; height: 42px; background: var(--rood); color: #fff;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 1.2rem; flex-shrink: 0;
-    }
+    .brand .mark-img { height: 46px; width: auto; display: block; flex-shrink: 0; }
     .brand .name { font-size: 1.05rem; font-weight: 700; color: var(--donker); line-height: 1.15; }
     .brand .name small { display: block; font-size: 0.66rem; font-weight: 400; color: var(--rood); }
 
@@ -118,6 +119,7 @@
 
     /* ===== Footer / contact ===== */
     footer { background: var(--donker); color: #fff; text-align: center; padding: 4rem 1.5rem; }
+    footer .footer-logo { height: 64px; width: auto; margin: 0 auto 1.5rem; display: block; }
     footer h2 { color: #fff; font-size: 1.8rem; margin-bottom: 0.5rem; }
     footer .team { color: var(--rood); font-weight: 700; letter-spacing: 0.5px; margin-bottom: 1.25rem; }
     footer p { opacity: 0.9; max-width: 560px; margin: 0 auto 1.75rem; }
@@ -131,16 +133,7 @@
   <header>
     <div class="header-inner">
       <a href="#top" class="brand">
-        <!-- Placeholder-embleem in de stijl van het Leger des Heils.
-             Vervang dit door het officiële logo-bestand zodra je dat (met toestemming) hebt:
-             <img src="leger-des-heils-logo.png" alt="Leger des Heils" class="mark-img" /> -->
-        <span class="mark" aria-hidden="true">
-          <svg viewBox="0 0 24 28" width="26" height="30" role="img" aria-label="Embleem">
-            <path d="M12 1 L23 5 V14 C23 21 18 25 12 27 C6 25 1 21 1 14 V5 Z"
-                  fill="#fff" stroke="none"/>
-            <path d="M12 6 V20 M6 13 H18" stroke="#D4232B" stroke-width="2.4" stroke-linecap="round"/>
-          </svg>
-        </span>
+        <img src="ldh%20logo.png" alt="Leger des Heils" class="mark-img" />
         <span class="name">Leger des Heils<small>Rosie &amp; ik — DAI-team</small></span>
       </a>
       <nav class="menu">
@@ -237,8 +230,9 @@
 
   <!-- ===== Footer / contact ===== -->
   <footer id="contact">
+    <img src="ldh%20logo.png" alt="Leger des Heils" class="footer-logo" />
     <h2>Neem direct contact op</h2>
-    <div class="team">Rosie &amp; Anne-Frouk de Goede— DAI-team</div>
+    <div class="team">Rosie &amp; Anne-Frouk de Goede — DAI-team</div>
     <p>Wil je ons inzetten voor een huisbezoek, binnen jouw ambulante team of op een woongroep van het Leger des Heils? Neem direct contact met ons op.</p>
     <a href="mailto:joelgrimberg@gmail.com" class="btn btn-rood">Stuur een bericht</a>
     <div class="footer-bottom">
