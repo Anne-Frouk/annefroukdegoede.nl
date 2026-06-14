@@ -160,6 +160,35 @@
     footer p { opacity: 0.9; max-width: 560px; margin: 0 auto 1.75rem; }
     .footer-bottom { margin-top: 2.5rem; font-size: 0.82rem; opacity: 0.6; }
     .footer-bottom a { color: #fff; }
+
+    /* Contactformulier */
+    .contact-form {
+      max-width: 560px; margin: 0 auto 1.5rem; text-align: left;
+      display: grid; gap: 0.9rem;
+    }
+    .contact-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    @media (max-width: 560px) { .contact-form .row { grid-template-columns: 1fr; } }
+    .contact-form label { display: block; font-size: 0.82rem; margin-bottom: 0.3rem; opacity: 0.85; }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%; padding: 0.7rem 0.85rem; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.06);
+      color: #fff; font-family: inherit; font-size: 0.95rem;
+    }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(255,255,255,0.45); }
+    .contact-form select { appearance: none; }
+    .contact-form select option { color: #1D252D; }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+      outline: none; border-color: var(--rood); background: rgba(255,255,255,0.1);
+    }
+    .contact-form textarea { resize: vertical; min-height: 110px; }
+    .contact-form .btn { justify-self: start; cursor: pointer; }
+    .contact-alt { font-size: 0.85rem; opacity: 0.8; margin-bottom: 1.5rem; }
+    .contact-alt a { color: var(--rood); }
   </style>
 </head>
 <body>
@@ -305,8 +334,46 @@
     <img src="ldh%20logo.png" alt="Leger des Heils" class="footer-logo" />
     <h2>Neem direct contact op</h2>
     <div class="team">Rosie &amp; Anne-Frouk de Goede — DAI-team</div>
-    <p>Wil je ons inzetten voor een huisbezoek, binnen jouw ambulante team of op een woongroep van het Leger des Heils? Neem direct contact met ons op.</p>
-    <a href="mailto:joelgrimberg@gmail.com" class="btn btn-rood">Stuur een bericht</a>
+    <p>Wil je ons inzetten voor een huisbezoek, binnen jouw ambulante team of op een woongroep van het Leger des Heils? Vul het formulier in, dan nemen wij snel contact op.</p>
+
+    <form class="contact-form" action="mailto:annefrouk.de.goede@legerdesheils.nl" method="post" enctype="text/plain">
+      <div class="row">
+        <div>
+          <label for="cf-naam">Naam</label>
+          <input id="cf-naam" name="Naam" type="text" placeholder="Voor- en achternaam" required />
+        </div>
+        <div>
+          <label for="cf-org">Organisatie / locatie</label>
+          <input id="cf-org" name="Organisatie" type="text" placeholder="Bijv. Leger des Heils, locatie …" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="cf-email">E-mailadres</label>
+          <input id="cf-email" name="E-mail" type="email" placeholder="naam@organisatie.nl" required />
+        </div>
+        <div>
+          <label for="cf-tel">Telefoonnummer</label>
+          <input id="cf-tel" name="Telefoon" type="tel" placeholder="06 - …" />
+        </div>
+      </div>
+      <div>
+        <label for="cf-type">Type inzet</label>
+        <select id="cf-type" name="Type inzet">
+          <option value="">Maak een keuze…</option>
+          <option>Ambulante hulpverlening / huisbezoek</option>
+          <option>Woongroep / groepsgericht werken</option>
+          <option>Anders / nog onbekend</option>
+        </select>
+      </div>
+      <div>
+        <label for="cf-bericht">Bericht</label>
+        <textarea id="cf-bericht" name="Bericht" placeholder="Vertel kort waarvoor en wanneer je ons zou willen inzetten."></textarea>
+      </div>
+      <button type="submit" class="btn btn-rood">Verstuur aanvraag</button>
+    </form>
+
+    <p class="contact-alt">Liever rechtstreeks mailen? <a href="mailto:annefrouk.de.goede@legerdesheils.nl">annefrouk.de.goede@legerdesheils.nl</a></p>
     <div class="footer-bottom">
       &copy; 2026 · Rosie &amp; ik · DAI-team — in de kleuren van het <a href="index.html">Leger des Heils</a><br />
       Fotografie: Photography by Kim Hildering
