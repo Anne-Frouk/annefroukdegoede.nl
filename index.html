@@ -192,6 +192,11 @@
     }
     .contact-form textarea { resize: vertical; min-height: 110px; }
     .contact-form .btn { justify-self: start; cursor: pointer; }
+    .contact-form .btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+    .hp-field { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+    #contact-status { font-size: 0.9rem; margin-top: 0.25rem; min-height: 1.2em; }
+    #contact-status.is-success { color: #7ed957; }
+    #contact-status.is-error { color: var(--rood); }
     .contact-alt { font-size: 0.85rem; opacity: 0.8; margin-bottom: 1.5rem; }
     .contact-alt a { color: var(--rood); }
   </style>
@@ -428,31 +433,30 @@
     <div class="team">Rosie &amp; Anne-Frouk de Goede — DAI-team</div>
     <p>Wil je ons inzetten voor een huisbezoek, binnen jouw ambulante team of op een woongroep van het Leger des Heils? Vul het formulier in, dan nemen wij snel contact op.</p>
 
-    <!-- TODO: ontvangst-e-mailadres / verzendmethode nog instellen -->
-    <form class="contact-form" id="contact-form" method="post" enctype="text/plain">
+    <form class="contact-form" id="contact-form" novalidate>
       <div class="row">
         <div>
           <label for="cf-naam">Naam</label>
-          <input id="cf-naam" name="Naam" type="text" placeholder="Voor- en achternaam" required />
+          <input id="cf-naam" name="naam" type="text" placeholder="Voor- en achternaam" required />
         </div>
         <div>
           <label for="cf-org">Organisatie / locatie</label>
-          <input id="cf-org" name="Organisatie" type="text" placeholder="Bijv. Leger des Heils, locatie …" />
+          <input id="cf-org" name="organisatie" type="text" placeholder="Bijv. Leger des Heils, locatie …" />
         </div>
       </div>
       <div class="row">
         <div>
           <label for="cf-email">E-mailadres</label>
-          <input id="cf-email" name="E-mail" type="email" placeholder="naam@organisatie.nl" required />
+          <input id="cf-email" name="email" type="email" placeholder="naam@organisatie.nl" required />
         </div>
         <div>
           <label for="cf-tel">Telefoonnummer</label>
-          <input id="cf-tel" name="Telefoon" type="tel" placeholder="06 - …" />
+          <input id="cf-tel" name="telefoon" type="tel" placeholder="06 - …" />
         </div>
       </div>
       <div>
         <label for="cf-type">Type inzet</label>
-        <select id="cf-type" name="Type inzet">
+        <select id="cf-type" name="typeInzet">
           <option value="">Maak een keuze…</option>
           <option>Ambulante hulpverlening / huisbezoek</option>
           <option>Woongroep / groepsgericht werken</option>
@@ -461,17 +465,69 @@
       </div>
       <div>
         <label for="cf-bericht">Bericht</label>
-        <textarea id="cf-bericht" name="Bericht" placeholder="Vertel kort waarvoor en wanneer je ons zou willen inzetten."></textarea>
+        <textarea id="cf-bericht" name="bericht" placeholder="Vertel kort waarvoor en wanneer je ons zou willen inzetten."></textarea>
+      </div>
+      <div class="hp-field" aria-hidden="true">
+        <label>Laat dit veld leeg
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
       </div>
       <button type="submit" class="btn btn-rood">Verstuur aanvraag</button>
+      <p id="contact-status" role="status" aria-live="polite"></p>
     </form>
 
-    <p class="contact-alt">Liever rechtstreeks mailen? TODO</p>
+    <p class="contact-alt">Liever rechtstreeks mailen? <a href="mailto:annefrouk.de.goede@legerdesheils.nl">annefrouk.de.goede@legerdesheils.nl</a></p>
     <div class="footer-bottom">
       &copy; 2026 · Rosie &amp; ik · DAI-team — in de kleuren van het <a href="index.html">Leger des Heils</a><br />
       Fotografie: Photography by Kim Hildering
     </div>
   </footer>
+
+  <script>
+    // Contactformulier: post naar /api/contact (Cloudflare Pages Function → Resend)
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      var status = document.getElementById('contact-status');
+      var button = form.querySelector('button[type="submit"]');
+      var originalLabel = button ? button.textContent : '';
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+
+        status.className = '';
+        status.textContent = '';
+        if (button) { button.disabled = true; button.textContent = 'Versturen…'; }
+
+        var data = {};
+        new FormData(form).forEach(function (value, key) { data[key] = value; });
+
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+          .then(function (res) { return res.json().catch(function () { return { ok: res.ok }; }); })
+          .then(function (result) {
+            if (result && result.ok) {
+              form.reset();
+              status.className = 'is-success';
+              status.textContent = 'Bedankt, we nemen snel contact op.';
+            } else {
+              throw new Error('send_failed');
+            }
+          })
+          .catch(function () {
+            status.className = 'is-error';
+            status.textContent = 'Er ging iets mis. Probeer het opnieuw of mail rechtstreeks naar annefrouk.de.goede@legerdesheils.nl.';
+          })
+          .then(function () {
+            if (button) { button.disabled = false; button.textContent = originalLabel; }
+          });
+      });
+    })();
+  </script>
 
   <script>
     // Scroll-spy: markeer het menu-item van de sectie die in beeld is
