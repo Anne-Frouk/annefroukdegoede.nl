@@ -102,8 +102,11 @@
     p { margin-bottom: 1rem; }
 
     /* Over ons: twee kaarten */
-    .duo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .duo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: start; }
     @media (max-width: 860px) { .duo { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+    .panel h4 { color: var(--rood); font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
+    .card-list { margin: 0 0 0 1.1rem; padding: 0; }
+    .card-list li { margin-bottom: 0.5rem; }
     .panel {
       background: #fff; border: 1px solid var(--lijn); border-radius: 12px;
       padding: 1.75rem; border-top: 4px solid var(--rood);
@@ -268,6 +271,16 @@
           <h3>Ontmoet ons team</h3>
           <p><strong>Samen sterker.</strong></p>
           <p>Als ingespeeld DAI-team vullen wij elkaar aan: Anne-Frouk leest de mens en de situatie, Rosie leest de sfeer en het gevoel. Samen brengen wij rust, vertrouwen en verbinding op plekken waar dat het hardst nodig is.</p>
+          <h4>Waarom is DAI van meerwaarde?</h4>
+          <p>Werken met een hond brengt iets in de hulpverlening wat geen andere therapie of interventie kan bieden:</p>
+          <ul class="card-list">
+            <li>motivatie, zelfvertrouwen en gevoel van eigenwaarde bij de deelnemer worden vergroot;</li>
+            <li>Rosie sluit goed aan bij de deelnemer door haar gevoeligheid;</li>
+            <li>elke actie van een deelnemer geeft meteen een reactie van Rosie — dit zorgt voor een gevoel van invloed, erkenning en vertrouwen;</li>
+            <li>het vergroot de sociale weerbaarheid van de deelnemer en verbetert de communicatievaardigheden;</li>
+            <li>in de omgang met Rosie komt er bij de deelnemer oxytocine vrij, wat zorgt voor een daling van hartslag en bloeddruk;</li>
+            <li>gevoelens van depressiviteit en angst bij de deelnemer nemen af.</li>
+          </ul>
         </div>
       </div>
 
