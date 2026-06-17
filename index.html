@@ -106,7 +106,14 @@
     @media (max-width: 860px) { .duo { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
     .panel h4 { color: var(--rood); font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
     .card-list { margin: 0 0 0 1.1rem; padding: 0; }
-    .card-list li { margin-bottom: 0.5rem; }
+    .card-list li { margin-bottom: 0.15rem; }
+    .kwal .card-list { margin-top: 0.25rem; }
+    .kwal .card-list li { margin-bottom: 0.1rem; }
+    .kwal h4 {
+      color: var(--rood); font-size: 1.05rem;
+      margin: 0.75rem 0 0.35rem; padding-bottom: 0.25rem;
+      border-bottom: 1px solid var(--lijn);
+    }
     .panel {
       background: #fff; border: 1px solid var(--lijn); border-radius: 12px;
       padding: 1.75rem; border-top: 4px solid var(--rood);
@@ -133,10 +140,9 @@
     /* Kwaliteit */
     .kwal { max-width: 760px; margin: 0 auto; }
     .kwal li {
-      list-style: none; padding: 1rem 0; border-bottom: 1px solid var(--lijn);
+      list-style: none; padding: 0.4rem 0;
       display: flex; gap: 1rem; align-items: flex-start;
     }
-    .kwal li:last-child { border-bottom: none; }
     .kwal .check {
       color: var(--rood); font-weight: 800; font-size: 1.2rem; flex-shrink: 0; line-height: 1.4;
     }
