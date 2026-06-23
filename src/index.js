@@ -28,9 +28,7 @@ function json(status, body) {
   });
 }
 
-export async function onRequest(context) {
-  const { request, env } = context;
-
+async function handleContact(request, env) {
   if (request.method !== "POST") {
     return new Response("Method Not Allowed", {
       status: 405,
@@ -45,7 +43,6 @@ export async function onRequest(context) {
     return json(400, { ok: false, error: "invalid_json" });
   }
 
-  // Honeypot: bots vullen dit verborgen veld in. Stilletjes "ok" antwoorden.
   if (body && typeof body.website === "string" && body.website.trim() !== "") {
     return json(200, { ok: true });
   }
@@ -115,3 +112,13 @@ export async function onRequest(context) {
 
   return json(200, { ok: true });
 }
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === "/api/contact") {
+      return handleContact(request, env);
+    }
+    return env.ASSETS.fetch(request);
+  },
+};
