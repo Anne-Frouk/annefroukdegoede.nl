@@ -117,11 +117,6 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/api/contact") {
-      console.log(
-        "ASSETS:", typeof env.ASSETS,
-        "RESEND_API_KEY:", typeof env.RESEND_API_KEY,
-        "keys:", JSON.stringify(Object.keys(env))
-      );
       return handleContact(request, env);
     }
     return env.ASSETS.fetch(request);
