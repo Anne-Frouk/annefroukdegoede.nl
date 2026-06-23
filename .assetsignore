@@ -4,4 +4,6 @@ wrangler.jsonc
 .assetsignore
 .claude/
 .gitignore
+.git/
+.wrangler/
 README.md
