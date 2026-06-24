@@ -28,6 +28,17 @@ function json(status, body) {
   });
 }
 
+function sendResend(apiKey, payload) {
+  return fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
 async function handleContact(request, env) {
   if (request.method !== "POST") {
     return new Response("Method Not Allowed", {
@@ -88,26 +99,50 @@ async function handleContact(request, env) {
     `<p><strong>Bericht:</strong></p>` +
     `<p style="white-space:pre-wrap">${escapeHtml(fields.bericht || "-")}</p>`;
 
-  const resendResp = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${env.RESEND_API_KEY}`,
-    },
-    body: JSON.stringify({
-      from: FROM_EMAIL,
-      to: [TO_EMAIL],
-      reply_to: fields.email,
-      subject: `Nieuwe aanvraag via annefroukdegoede.nl — ${fields.naam}`,
-      text,
-      html,
-    }),
+  const mainResp = await sendResend(env.RESEND_API_KEY, {
+    from: FROM_EMAIL,
+    to: [TO_EMAIL],
+    reply_to: fields.email,
+    subject: `Nieuwe aanvraag via annefroukdegoede.nl — ${fields.naam}`,
+    text,
+    html,
   });
 
-  if (!resendResp.ok) {
-    const detail = await resendResp.text().catch(() => "");
-    console.error("Resend error", resendResp.status, detail);
+  if (!mainResp.ok) {
+    const detail = await mainResp.text().catch(() => "");
+    console.error("Resend error (notification)", mainResp.status, detail);
     return json(500, { ok: false, error: "send_failed" });
+  }
+
+  const confirmText =
+    `Hoi ${fields.naam},\n\n` +
+    `Bedankt voor je bericht via annefroukdegoede.nl. ` +
+    `Ik neem zo snel mogelijk contact met je op.\n\n` +
+    `Voor je administratie hieronder een kopie van wat je hebt verstuurd:\n\n` +
+    `${text}\n` +
+    `Hartelijke groet,\n` +
+    `Anne-Frouk de Goede\n`;
+
+  const confirmHtml =
+    `<p>Hoi ${escapeHtml(fields.naam)},</p>` +
+    `<p>Bedankt voor je bericht via annefroukdegoede.nl. ` +
+    `Ik neem zo snel mogelijk contact met je op.</p>` +
+    `<p>Voor je administratie hieronder een kopie van wat je hebt verstuurd:</p>` +
+    html +
+    `<p>Hartelijke groet,<br>Anne-Frouk de Goede</p>`;
+
+  const confirmResp = await sendResend(env.RESEND_API_KEY, {
+    from: FROM_EMAIL,
+    to: [fields.email],
+    reply_to: TO_EMAIL,
+    subject: "Bedankt voor je bericht — annefroukdegoede.nl",
+    text: confirmText,
+    html: confirmHtml,
+  });
+
+  if (!confirmResp.ok) {
+    const detail = await confirmResp.text().catch(() => "");
+    console.error("Resend error (confirmation)", confirmResp.status, detail);
   }
 
   return json(200, { ok: true });
